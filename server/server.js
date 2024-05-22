@@ -1,4 +1,3 @@
-// I ADDED/MODIFIED A TON HERE TO IMPLEMENT APOLLO SERVER
 const express = require('express');
 const { ApolloServer } = require('@apollo/server');
 const { expressMiddleware } = require('@apollo/server/express4');
@@ -9,12 +8,13 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+// Creates a new instance of an Apollo server with the GraphQL schema
 const server = new ApolloServer({
     typeDefs,
     resolvers,
 });
 
-// Create a new instance of an Apollo server with the GraphQL schema
+// Set up and start server
 const startApolloServer = async () => {
     await server.start();
 

@@ -15,3 +15,15 @@ h6 {
   font-weight: 300;
   font-style: italic;
 }
+
+.no-sale-txt-search-pg {
+    margin: 0.8rem 0rem;
+}
+
+.custom-btn-margin {
+    margin: 0.5rem;
+}
+
+.no-sale-txt-saved-pg {
+    margin: 0.4rem 0.5rem 0.4rem 0.8rem;
+}
