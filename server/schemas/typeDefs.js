@@ -1,3 +1,4 @@
+// Defining the types to give structure to the GraphQL API
 const typeDefs = `
     type User {
         _id: ID!
@@ -11,13 +12,13 @@ const typeDefs = `
     type Book {
         bookId: String!
         authors: [String]!
-        description: String!
         title: String!
+        description: String!
         image: String
-        link: String
+        buyLink: String
+        seeMoreLink: String
     }
 
-    # Should User be made non-nullable in the below?
     type Auth {
         token: ID!
         user: User
@@ -27,21 +28,23 @@ const typeDefs = `
         me: User
     }
 
-    # I made image and link nullable, since I'm not sure if we would get them back from the API 100% of the time and I don't want to get an error.
+    # Input type which helps to manage the arguments passed for the saveBook mutation
     input BookInput {
-        authors: [String]!
-        description: String!
         bookId: String!
-        image: String
-        link: String
+        authors: [String]!
         title: String!
+        description: String!
+        image: String
+        buyLink: String
+        seeMoreLink: String
     }
 
     type Mutation {
         addUser(username: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
-        saveBook(input: BookInput!): User
+        saveBook(userId: ID!, input: BookInput!): User
         removeBook(bookId: String!): User
     }
-
 `
+
+module.exports = typeDefs;

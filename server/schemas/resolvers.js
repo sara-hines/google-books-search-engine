@@ -3,6 +3,7 @@ const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
     Query: {
+        // Obtain the user's data using context
         me: async (parent, args, context) => {
             if (context.user) {
                 return User.findOne({ _id: context.user._id });
@@ -12,6 +13,7 @@ const resolvers = {
     },
 
     Mutation: {
+        // Create a user and generate and sign a token for them 
         addUser: async (parent, { username, email, password }) => {
             const user = await User.create({ username, email, password });
 
@@ -19,6 +21,7 @@ const resolvers = {
             return { token, user };
         },
 
+        // login mutation which finds the user by email, checks if the provided password was correct, and signs a jwt if credentials were valid
         login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
@@ -35,7 +38,8 @@ const resolvers = {
             return { token, user };
         },
 
-        saveBook: async (parent, { input }, context) => {
+        // Save a book using the input (which passes the necessary fields for the book) and context
+        saveBook: async (parent, { userId, input }, context) => {
             if (!context.user) {
                 throw AuthenticationError;
             }
@@ -53,11 +57,12 @@ const resolvers = {
             }
         },
 
-        removeBook: async (parent, { input }, context) => {
+        // Remove a book from the user's savedBooks array using the bookId and context
+        removeBook: async (parent, { bookId }, context) => {
             if (context.user) {
                 return User.findOneAndUpdate(
                     { _id: context.user._id },
-                    { $pull: { savedBooks: input } },
+                    { $pull: { savedBooks: { bookId: bookId } } },
                     { new: true }
                 );
             }
