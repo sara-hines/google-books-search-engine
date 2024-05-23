@@ -30,7 +30,7 @@ const userSchema = new Schema(
             required: true,
             validate: {
                 validator: function (password) {
-                    // Regex pattern used to check if password is strong enough. Requirements: at least 8 char long, at least 1 lowercase letter, at least 1 uppercase letter, at least 1 digit, as least 1 special char
+                    // Regex pattern used to check if password is strong enough. Requirements: at least 8 char long, at least 1 lowercase letter, at least 1 uppercase letter, at least 1 digit, at least 1 special char
                     return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
                 },
                 message: "Please enter a valid password",
